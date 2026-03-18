@@ -1,11 +1,5 @@
-all: build/Inspectiv.ttf build/Inspectiv.eot build/Inspectiv.svg build/Inspectiv\ Mac.ttf
+all: build/InspectivIcons.ttf build/InspectivIcons.otf build/InspectivIcons.woff 
 
-tmp/Inspectiv%: 
-	 birdfont-export -o tmp ./src/Inspectiv.bf && ls -rt1 tmp/ | sed "s/^ //" | xargs -I '{}' cp 'tmp/\ {}' 'tmp/{}' 
-
-build/Inspectiv%: tmp/Inspectiv% 
-	cp '$<' '$@'
-
-clean: 
-	rm -rf ./tmp/*
+build/InspectivIcons.%:
+	./src/generate_font.py -i ./src/glyphs -o ./build -n InspectivIcons
 
