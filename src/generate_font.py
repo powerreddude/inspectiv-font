@@ -7,7 +7,9 @@ import getopt
 
 def create_normalized_icon_font(glyph_dir, output_dir, font_name):
     font = fontforge.font()
-    font.fontname = font_name
+    font.familyname = font_name
+    font.fontname = font_name.replace(' ', '') + "-Regular"
+    font.fullname = font_name + " Regular"
     
     TARGET_SIZE = 2000 
     font.ascent = 1600  # Adjusting to fit larger icons
@@ -52,7 +54,7 @@ def create_normalized_icon_font(glyph_dir, output_dir, font_name):
         unicode_val += 1   
 
     for ext in ['otf', 'ttf', 'woff']:
-        font.generate(f"{output_dir}/{font_name}.{ext}")
+        font.generate(f"{output_dir}/{font_name.replace(' ', '')}.{ext}")
     
     with open(f"{output_dir}/README.md", "w", encoding="utf-8") as f:
         f.write("\n".join(readme_lines))
